@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, globalShortcut} = require('electron');
 const path = require('path');
 
 const initIpcMainEvent = require('./ipc_main.js');
@@ -11,23 +11,24 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
     // Create the browser window.
-    const mainWindow = global.mainWindow = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
-            // preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
             contextIsolation: false
         }
     });
 
     // and load the index.html of the app.
-    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html')).then();
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools({mode: "bottom"});
+    globalShortcut.register('CommandOrControl+F12', () => {
+        mainWindow.webContents.openDevTools();
+    });
 
-    initIpcMainEvent();
+    initIpcMainEvent(mainWindow);
 };
 
 // This method will be called when Electron has finished
@@ -54,4 +55,3 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-

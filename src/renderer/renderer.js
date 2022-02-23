@@ -32,8 +32,8 @@ ipcRenderer.on('msg.generate.result', (event, msg) => {
     progress.value += 1;
 });
 
-ipcRenderer.on('msg.generate.end', (event, msg) => {
-    console.log(event, msg);
+ipcRenderer.on('msg.generate.end', (event) => {
+    console.log(event);
 });
 
 function reset() {

@@ -81,8 +81,9 @@ async function findFastIp(ipList) {
     let fastIp = ipList[0];
     let minAvgTime = 3000;
 
+    const config = {timeout: 10, extra: ['-i', '10']};
     for (let i = 0; i < ipList.length; i++) {
-        const res = await ping.promise.probe(ipList[i], {timeout: 10, extra: ['-i', '10']});
+        const res = await ping.promise.probe(ipList[i], config);
         if (res.alive && res.avg < minAvgTime) {
             fastIp = ipList[i];
             minAvgTime = res.avg;
