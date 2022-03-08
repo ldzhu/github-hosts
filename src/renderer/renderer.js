@@ -5,6 +5,7 @@ const $generate = document.getElementById('generate');
 const $progress = document.getElementById('progress');
 const $modify = document.getElementById('modify');
 const $hotKey = document.getElementById('hot-key');
+const $remove = document.getElementById('remove');
 
 // ip host data cache.
 let hosts = [];
@@ -41,6 +42,10 @@ $hotKey.addEventListener('click', () => {
     }, 3000);
 })
 
+$remove.addEventListener('click', () => {
+    ipcRenderer.send('remove.click');
+});
+
 ipcRenderer.on('msg.generate.start', (event, msg) => {
     progress.max = msg.total;
 });
@@ -58,6 +63,15 @@ ipcRenderer.on('msg.generate.end', () => {
 ipcRenderer.on('msg.modify.successful', (event, successful, msg) => {
     if (successful) {
         alert('hosts写入成功');
+    } else {
+        alert(msg);
+    }
+});
+
+ipcRenderer.on('msg.remove.successful', (event, successful, msg) => {
+    if (successful) {
+        reset();
+        alert('hosts清除成功');
     } else {
         alert(msg);
     }

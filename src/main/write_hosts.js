@@ -22,10 +22,19 @@ function writeHosts(hosts) {
     }
 }
 
-const args = process.argv[2];
-const hosts = [];
-args.split('#').forEach(s => {
-    const h = s.split('@');
-    hosts.push({ip: h[0], name: h[1]});
-})
-writeHosts(hosts);
+const argv = require('minimist')(process.argv.slice(2));
+if ('modify' === argv['type']) {
+    const args = argv['args'];
+    const hosts = [];
+    args.split('#').forEach(s => {
+        const h = s.split('@');
+        hosts.push({ip: h[0], name: h[1]});
+    })
+    writeHosts(hosts);
+} else if ('remove' === argv['type']) {
+    const args = argv['args'];
+    args.split('#').forEach(u => {
+        removeHost(u);
+    });
+}
+
