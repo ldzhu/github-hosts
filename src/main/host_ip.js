@@ -12,7 +12,6 @@ async function generateIpAndHost(githubUrls) {
 
     for (let i = 0; i < githubUrls.length; i++) {
         const ip = await getFastIpByHost(githubUrls[i]);
-        console.log(githubUrls[i], ip);
         hostIpMap.set(githubUrls[i], ip);
     }
 
@@ -31,7 +30,7 @@ async function getFastIpByHost(host) {
             retry--;
             ipAddressContent = await ipAddress(ipAddressUrl);
         } else {
-            console.log(`${host} fetch failed.`);
+            console.error(`${host} fetch failed.`);
         }
     }
     const ipList = parseHtmlContent(ipAddressContent);

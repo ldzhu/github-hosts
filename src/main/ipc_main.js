@@ -1,6 +1,7 @@
 const {ipcMain} = require('electron');
 
 const {getFastIpByHost} = require("./host_ip");
+const {writeHostsWrapper} = require('./sudo_wrapper');
 const githubUrls = require('../../static/github-urls.json').urls;
 
 module.exports = function (mainWindow) {
@@ -9,10 +10,14 @@ module.exports = function (mainWindow) {
 
         await Promise.all(githubUrls.map(async (host) => {
             const ip = await getFastIpByHost(host);
-            mainWindow.webContents.send('msg.generate.result', {ip: ip, host: host});
+            mainWindow.webContents.send('msg.generate.result', {ip: ip, name: host});
         }))
 
         mainWindow.webContents.send('msg.generate.end');
+    });
+
+    ipcMain.on('modify.click', (event, hosts) => {
+        writeHostsWrapper(hosts, mainWindow);
     });
 
 }

@@ -3,7 +3,13 @@ const {ipcRenderer} = require('electron');
 const $code = document.getElementById('code');
 const $generate = document.getElementById('generate');
 const $progress = document.getElementById('progress');
+const $modify = document.getElementById('modify');
+const $hotKey = document.getElementById('hot-key');
 
+// ip host data cache.
+let hosts = [];
+let generateEnd = false;
+// progressbar
 const progress = {
     get value() {
         return $progress.value;
@@ -21,23 +27,46 @@ $generate.addEventListener('click', ()=> {
     ipcRenderer.send('generate.click', {});
 })
 
+$modify.addEventListener('click', () => {
+    ipcRenderer.send('modify.click', hosts);
+})
+
+$hotKey.addEventListener('click', () => {
+    $generate.click();
+    const timer = setInterval(() => {
+        if (generateEnd) {
+            $modify.click();
+            clearInterval(timer);
+        }
+    }, 3000);
+})
+
 ipcRenderer.on('msg.generate.start', (event, msg) => {
-    console.log(event, msg);
     progress.max = msg.total;
 });
 
 ipcRenderer.on('msg.generate.result', (event, msg) => {
-    console.log(event, msg);
-    $code.innerHTML += `<div><span class="ip">${msg.ip}</span><span>${msg.host}</span></div>`;
+    hosts.push(msg);
+    $code.innerHTML += `<div><span class="ip">${msg.ip}</span><span>${msg.name}</span></div>`;
     progress.value += 1;
 });
 
-ipcRenderer.on('msg.generate.end', (event) => {
-    console.log(event);
+ipcRenderer.on('msg.generate.end', () => {
+    generateEnd = true;
+});
+
+ipcRenderer.on('msg.modify.successful', (event, successful, msg) => {
+    if (successful) {
+        alert('hosts写入成功');
+    } else {
+        alert(msg);
+    }
 });
 
 function reset() {
     progress.max = 0;
     progress.value = 0;
+    hosts = [];
+    generateEnd = false;
     $code.innerHTML = '';
 }
