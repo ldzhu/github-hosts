@@ -18,40 +18,15 @@
   },
   "license": "MIT",
   "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "github_hosts"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
+    "forge": "./forge.config.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
+    "electron-hostile": "^1.1.1",
     "electron-squirrel-startup": "^1.0.0",
-    "hostile": "^1.3.3",
     "minimist": "^1.2.5",
     "node-fetch": "^2.6.1",
-    "ping": "^0.4.1",
-    "sudo-prompt": "^9.2.1"
+    "ping": "^0.4.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.63",

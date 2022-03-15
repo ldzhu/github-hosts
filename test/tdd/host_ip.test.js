@@ -1,4 +1,4 @@
-const {generateIpAndHost} = require("../../src/main/host_ip");
+const {generateIpAndHost} = require("../../src/main/utils/host_ip");
 
 const githubUrls = require('../../static/github-urls.json').urls;
 

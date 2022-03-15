@@ -52,7 +52,7 @@ ipcRenderer.on('msg.generate.start', (event, msg) => {
 
 ipcRenderer.on('msg.generate.result', (event, msg) => {
     hosts.push(msg);
-    $code.innerHTML += `<div><span class="ip">${msg.ip}</span><span>${msg.name}</span></div>`;
+    $code.innerHTML += `<div><span class="ip">${msg.ip}</span><span>${msg.host}</span></div>`;
     progress.value += 1;
 });
 
