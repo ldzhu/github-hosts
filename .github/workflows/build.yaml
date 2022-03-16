@@ -14,11 +14,20 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-latest, windows-latest ]
+        os: [ macos-latest ]
 
     steps:
       - name: Print a greeting
         env:
           HELLO_WORLD: Hello World!
         run:
-          echo $HELLO_WORLD
+            echo $HELLO_WORLD
+
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js, NPM and Yarn
+          uses: actions/setup-node@v3
+          with:
+            node-version: 14
+            cache: 'yarn'
