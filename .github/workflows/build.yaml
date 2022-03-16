@@ -30,4 +30,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
-          cache: 'yarn'
+
+      - name: Yarn install
+        run:
+          yarn install
+
+      - name: Build mac app
+        run:
+          npm run make
+
+
