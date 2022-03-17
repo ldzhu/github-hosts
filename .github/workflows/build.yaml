@@ -3,8 +3,6 @@ name: Release
 # workflow's trigger
 on:
   push:
-    branches:
-      - master
     tags:
       - v*
   workflow_dispatch:
@@ -16,8 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        # os: [ macos-latest, windows-latest, ubuntu-latest ]
-        os: [ ubuntu-latest ]
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
 
     # release steps
     steps:
@@ -65,7 +62,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           mkdir artifacts
-        # mv out/make/ artifacts || true
+          mv out/make/deb/x64/*.deb artifacts || true
 
       # step 6: upload artifacts
       - name: Upload artifacts
