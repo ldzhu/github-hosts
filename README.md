@@ -2,7 +2,7 @@
 
 ### 下载&运行
 
-点击[下载应用](https://github.com/ldzhu/github-hosts)
+点击[下载应用](https://github.com/ldzhu/github-hosts/releases)
 
 > 暂时只在macOS测试通过。开发版本，未发布release包。
 
