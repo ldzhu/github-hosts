@@ -1,4 +1,10 @@
 module.exports = {
+    hooks: {
+        postMake: async (forgeConfig, options) => {
+            const makeResult = options[0];
+            console.log(`Completed make for ${makeResult.platform} / ${makeResult.arch} at ${makeResult.artifacts[0]}`);
+        }
+    },
     packagerConfig: {},
     makers: [
         {

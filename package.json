@@ -1,7 +1,7 @@
 {
   "name": "github-hosts",
   "productName": "github-hosts",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "github hosts electron",
   "main": "src/main/index.js",
   "scripts": {
