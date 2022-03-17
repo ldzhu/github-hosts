@@ -10,7 +10,7 @@ module.exports = {
         {
             name: "@electron-forge/maker-squirrel",
             config: {
-                name: "Github Hosts"
+                name: "Github_Hosts"
             }
         },
         {
