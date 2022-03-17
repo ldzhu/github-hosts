@@ -60,7 +60,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           mkdir artifacts
-          mv out/make/squirrel.windows/x64/*/* artifacts || true
+          mv out/make/squirrel.windows/x64/* artifacts || true
       - name: Cleanup artifacts for linux
         if: matrix.os == 'ubuntu-latest'
         run: |
