@@ -40,12 +40,6 @@ jobs:
           mkdir artifacts
           mv out/make/zip/darwin/*/*.zip artifacts || true
 
-      # TODO
-      - name: test artifacts
-        run: |
-          cd artifacts
-          ls
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -54,7 +48,6 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: "artifacts/**"
         env:
