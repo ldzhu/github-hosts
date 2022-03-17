@@ -30,19 +30,32 @@ jobs:
           yarn install
 
       - name: Build mac app
-        run:
+        if: matrix.os == 'macos-latest'
+        run: |
           npm run make
+
+      - name: Cleanup artifacts in for macos
+        if: matrix.os == 'macos-latest'
+        run: |
+          mkdir artifacts
+          mv out/make/zip/darwin/*/*.zip artifacts || true
+
+      # TODO
+      - name: test artifacts
+        run: |
+          cd artifacts
+          ls
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-            name: ${{ matrix.os }}
-            path: out/make/zip/darwin/*/*
+          name: ${{ matrix.os }}
+          path: artifacts
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: "out/make/zip/darwin/*/*"
+          files: "artifacts/**"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
