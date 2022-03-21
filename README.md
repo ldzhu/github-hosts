@@ -4,8 +4,6 @@
 
 点击[下载应用](https://github.com/ldzhu/github-hosts/releases)
 
-> 暂时只在macOS测试通过。开发版本，未发布release包。
-
 ### 功能
 
 1. 一键加速： 根据github域名生成本机访问最快的IP地址，并写入系统hosts文件中。（功能3+功能4的组合）
